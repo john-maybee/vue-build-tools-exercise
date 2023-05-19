@@ -1,5 +1,51 @@
-<script>
-export default {
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Favorite TV Show - Vue 3 Practice</title>
+  </head>
+  <body>
+    <h1>Favorite TV Show</h1>
+    <div id="app">
+      <h2>{{ message }}</h2>
+      <h3>Statistics:</h3>
+      <ul>
+        <li v-for="(stat, type) in familyStatistics">{{ type }}: {{ stat }}</li>
+      </ul>
+      <ul>
+        {{ familyStatistics }}
+      </ul>
+
+      <h3>Characters:</h3>
+      <p v-if="characterList.length === 0">There are no characters</p>
+      <ul v-else-if="characterList.length % 2 === 0">
+        <li v-for="character in characterList">
+          <p>{{ character.name }}</p>
+          <button @click="favoriteCharacter(character)">🔥 Favorite</button>
+        </li>
+      </ul>
+      <p v-else>There are an odd number of characters</p>
+      <h3>Favorite Characters</h3>
+      <ul v-if="favoriteList.length > 0">
+        <li v-for="character in favoriteList">
+          {{ character.name }}
+        </li>
+      </ul>
+      <p v-else>There are no favorite characters!</p>
+      <h3>New Character</h3>
+      <pre>
+        {{ newCharacter }}
+      </pre>
+      <label for="character-name">Name</label>
+      <input type="text" v-model="newCharacter.name"
+      @keyup.enter="addNewCharacter" />
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
         data: () => ({
           message: 'Arrested Development',
           newCharacter: {
@@ -92,40 +138,7 @@ export default {
             this.favoriteList.push(character)
           }
         }
-      }
-</script>
-
-<template>
-  <h2>{{ message }}</h2>
-  <h3>Statistics:</h3>
-  <ul>
-    <li v-for="(stat, type) in familyStatistics" :key="`character-${stat}-${type}`">{{ type }}: {{ stat }}</li>
-  </ul>
-  <ul>
-    {{ familyStatistics }}
-  </ul>
-
-  <h3>Characters:</h3>
-  <p v-if="characterList.length === 0">There are no characters</p>
-  <ul v-else-if="characterList.length % 2 === 0">
-    <li v-for="(character, index) in characterList" :key="`even-character-${index}`">
-      <p>{{ character.name }}</p>
-      <button @click="favoriteCharacter(character)">🔥 Favorite</button>
-    </li>
-  </ul>
-  <p v-else>There are an odd number of characters</p>
-  <h3>Favorite Characters</h3>
-  <ul v-if="favoriteList.length > 0">
-    <li v-for="(character, index) in favoriteList" :key="`odd-character-${index}`">
-      {{ character.name }}
-    </li>
-  </ul>
-  <p v-else>There are no favorite characters!</p>
-  <h3>New Character</h3>
-  <pre>
-    {{ newCharacter }}
-  </pre>
-  <label for="character-name">Name</label>
-  <input type="text" v-model="newCharacter.name"
-  @keyup.enter="addNewCharacter" />
-</template>
+      }).mount('#app')
+    </script>
+  </body>
+</html>
