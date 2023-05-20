@@ -1,98 +1,59 @@
 <script>
+import CharacterList from './components/CharacterList.vue'
+
 export default {
-        data: () => ({
-          message: 'Arrested Development',
-          newCharacter: {
-            name: '',
-            family: []
-          },
-          characterList: [
-            {
-              name: 'Michael Bluth',
-              family: ['Bluth']
-            },
-            {
-              name: 'George Michael Bluth',
-              family: ['Bluth']
-            },
-            {
-              name: 'Lindsay Bluth Fünke',
-              family: ['Bluth', 'Fünke']
-            },
-            {
-              name: 'Tobias Fünke',
-              family: ['Fünke']
-            },
-            {
-              name: 'George Oscar "G.O.B." Bluth II',
-              family: ['Bluth']
-            },
-            {
-              name: 'Buster Bluth',
-              family: ['Bluth']
-            },
-            {
-              name: 'Maeby Fünke',
-              family: ['Fünke']
-            },
-            {
-              name: 'Lucille Bluth',
-              family: ['Bluth']
-            },
-            {
-              name: 'George Bluth Sr.',
-              family: ['Bluth']
-            },
-            {
-              name: 'Ann Veal',
-              family: ['Veal']
-            }
-          ],
-          favoriteList: []
-        }),
-        computed: {
-          familyStatistics() {
-            const families = ['Bluth', 'Fünke', 'Veal']
+  components: {
+    CharacterList,
+  },
+  data: () => ({
+    message: 'Arrested Development',
+    newCharacter: {
+      name: '',
+      family: []
+    },
 
-            const statistics = {
-              Bluth: 0,
-              Fünke: 0,
-              Veal: 0
-            }
+    favoriteList: []
+  }),
+  computed: {
+    familyStatistics() {
+      const families = ['Bluth', 'Fünke', 'Veal']
 
-            this.characterList.forEach(character => {
-              families.forEach(family => {
-                if (character.family.indexOf(family) > -1) {
-                  statistics[family] += 1
-                }
-              })
-            })
-
-            return statistics
-
-            // return this.characterList.filter
-            // (character => 
-            //   character.family.includes('Bluth')
-            // )
-            // return this.characterList.filter(character => {
-            //   if (character.family.contains('Bluth')){
-            //     return true
-            //   }
-            // }).length
-          }
-        },
-        methods: {
-          addNewCharacter() {
-            this.characterList.push(this.newCharacter)
-            this.newCharacter = {
-              name: ''
-            }
-          },
-          favoriteCharacter(character) {
-            this.favoriteList.push(character)
-          }
-        }
+      const statistics = {
+        Bluth: 0,
+        Fünke: 0,
+        Veal: 0
       }
+
+      this.characterList.forEach(character => {
+        families.forEach(family => {
+          if (character.family.indexOf(family) > -1) {
+            statistics[family] += 1
+          }
+        })
+      })
+
+      return statistics
+
+      // return this.characterList.filter
+      // (character => 
+      //   character.family.includes('Bluth')
+      // )
+      // return this.characterList.filter(character => {
+      //   if (character.family.contains('Bluth')){
+      //     return true
+      //   }
+      // }).length
+    }
+  },
+  methods: {
+    addNewCharacter() {
+      this.characterList.push(this.newCharacter)
+      this.newCharacter = {
+        name: ''
+      }
+    },
+  }
+}
 </script>
 
 <template>
@@ -104,16 +65,8 @@ export default {
   <ul>
     {{ familyStatistics }}
   </ul>
-
-  <h3>Characters:</h3>
-  <p v-if="characterList.length === 0">There are no characters</p>
-  <ul v-else-if="characterList.length % 2 === 0">
-    <li v-for="(character, index) in characterList" :key="`even-character-${index}`">
-      <p>{{ character.name }}</p>
-      <button @click="favoriteCharacter(character)">🔥 Favorite</button>
-    </li>
-  </ul>
-  <p v-else>There are an odd number of characters</p>
+<!-- Placeholder for CharacterList -->
+  <CharacterList />
   <h3>Favorite Characters</h3>
   <ul v-if="favoriteList.length > 0">
     <li v-for="(character, index) in favoriteList" :key="`odd-character-${index}`">
