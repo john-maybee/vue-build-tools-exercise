@@ -1,11 +1,13 @@
 <script>
 import FamilyStatistics from './components/FamilyStatistics.vue';
 import CharacterCard from './components/CharacterCard.vue';
+import BaseLayout from './components/BaseLayout.vue';
 
 export default {
   components: {
     FamilyStatistics,
-    CharacterCard
+    CharacterCard,
+    BaseLayout,
   },
   
     data: () => ({
@@ -74,7 +76,17 @@ export default {
 </script>
 
 <template>
-  
+  <BaseLayout>
+    <template v-slot:two>
+      <h3>New Character</h3>
+      <pre>
+        {{ newCharacter }}
+      </pre>
+      <label for="character-name">Name</label>
+      <input type="text" v-model="newCharacter.name"
+      @keyup.enter="addNewCharacter" />
+    </template>
+  </BaseLayout>
   <!-- <ul>
     {{ familyStatistics }}
   </ul> -->
@@ -95,11 +107,5 @@ export default {
     </li>
   </ul>
   <p v-else>There are no favorite characters!</p>
-  <h3>New Character</h3>
-  <pre>
-    {{ newCharacter }}
-  </pre>
-  <label for="character-name">Name</label>
-  <input type="text" v-model="newCharacter.name"
-  @keyup.enter="addNewCharacter" />
+  
 </template>
